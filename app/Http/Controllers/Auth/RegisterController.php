@@ -9,6 +9,7 @@ use App\Models\AdminData;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Facades\TestFacade;
 
 class RegisterController extends Controller
 {
@@ -66,35 +67,15 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         try {
-        $user=  User::create([
-            'name'  => $data['type'] == 3 ?? $data['name'],
+        return  User::create([
+            'name'  =>  $data['name'],
             'email' => $data['email'],
             'type' => $data['type'],
             'password' => Hash::make($data['password']),
         ]);
-        // dd($user);
+
     } catch (Exception $e) {
         dd($e->getMessage());
     }
-    if ($user['type'] == '1') {
-
-        $createRecord = array(
-            'user_id'=>$data['user_id'],
-            'name'  => $data['name'],
-            'image' => $data['image'],
-            // 'password' => Hash::make($data['password']),
-        );
-        // dd($createRecord->user_id);
-        try {
-             $user->admins()->create($createRecord);
-             $directorData= User::with('admins')->where('id','=', $user->id)->first();
-
-
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-    }else {
-        return $user;
-    }
-    }
+     }
 }

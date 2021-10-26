@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\AdminData;
+use App\Models\Product;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -48,4 +50,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(AdminData::class);
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+    public function isAdmin()
+{
+    return $this->role == 'admin';
+}
 }

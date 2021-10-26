@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->type == 1) {
-           return view("admin/dashboard");
+           return redirect("admin/dashboard");
         } elseif (Auth::user()->type == 2) {
 
             return view('home');

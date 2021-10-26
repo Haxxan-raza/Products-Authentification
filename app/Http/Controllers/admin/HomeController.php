@@ -11,7 +11,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $directors = User::where('type', 2)->get();
-        return view('admin.pages.TestForm', compact('directors'));
+        $admins = User::where('type', 1)->get();
+        return view('admin.dashboard', compact('admins'));
     }
+
 }
